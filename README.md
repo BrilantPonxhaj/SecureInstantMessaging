@@ -1,8 +1,10 @@
 # Secure Instant Messaging
 
-# Universiteti i Prishtinës "Hasan Prishtina"
+# Universiteti
+Universiteti i Prishtinës "Hasan Prishtina"
 
-# Fakulteti i inxhinierisë elektrike dhe kompjuterike
+# Fakulteti
+Fakulteti i inxhinierisë elektrike dhe kompjuterike
 Programi: Inxhinieri kompjuterike dhe softuerike
 
 # Titulli i Projektit
