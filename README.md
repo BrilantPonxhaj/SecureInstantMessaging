@@ -9,10 +9,10 @@ Programi: Inxhinieri kompjuterike dhe softuerike
 Secure Instant Messaging
 
 # Studentët të cilët kanë punuar këtë projekt:
-Brikenda Zogaj
-Brilant Ponxhaj
-Brineta Uka
-Çlirimtar Çitaku
+- Brikenda Zogaj
+- Brilant Ponxhaj
+- Brineta Uka
+- Çlirimtar Çitaku
 
 # Asistenti i Lëndës
 Mërgim Hoti
