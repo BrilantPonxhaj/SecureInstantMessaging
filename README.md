@@ -1,4 +1,4 @@
-# Secure Instant Messaging
+# Secure Instant Messaging Protocol
 
 # Universiteti
 Universiteti i Prishtinës "Hasan Prishtina"
