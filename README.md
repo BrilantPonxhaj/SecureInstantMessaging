@@ -8,7 +8,7 @@ Fakulteti i inxhinierisë elektrike dhe kompjuterike
 Programi: Inxhinieri kompjuterike dhe softuerike
 
 # Titulli i Projektit
-Secure Instant Messaging
+Secure Instant Messaging Protocol
 
 # Studentët të cilët kanë punuar këtë projekt:
 - Brikenda Zogaj
