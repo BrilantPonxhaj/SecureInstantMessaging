@@ -1,4 +1,6 @@
+import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -57,6 +59,52 @@ public class ChatServer {
 
      @Override
      public void run() {
+         try {
+             while (true) {
+                 int length = input.readInt();
+                 if (length > 0) {
+                     byte[] encryptedMessage = new byte[length];
+                     input.readFully(encryptedMessage, 0, encryptedMessage.length);
+                     byte[] iv = new byte[12];
+                     input.readFully(iv);
 
+                     Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+                     GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+                     cipher.init(Cipher.DECRYPT_MODE, aesKey, spec);
+                     byte[] decryptedMessage = cipher.doFinal(encryptedMessage);
+
+                     String message = new String(decryptedMessage);
+                     System.out.println("Received: " + message);
+
+                     // Broadcast message to all clients
+                     synchronized (clients) {
+                         for (ClientHandler client : clients) {
+                             if (client != this) {
+                                 client.sendMessage(message);
+                             }
+                         }
+                     }
+                 }
+             }
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+     }
+
+     private void sendMessage(String message) throws Exception {
+         byte[] iv = new byte[12];
+         SecureRandom random = new SecureRandom();
+         random.nextBytes(iv);
+
+         Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+         cipher.init(Cipher.ENCRYPT_MODE, aesKey, spec);
+         byte[] encryptedMessage = cipher.doFinal(message.getBytes());
+
+         output.writeInt(encryptedMessage.length);
+         output.write(encryptedMessage);
+         output.write(iv);
      }
  }
+
+
