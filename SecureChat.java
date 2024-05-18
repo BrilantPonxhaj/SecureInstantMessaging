@@ -15,8 +15,16 @@ public class SecureChat {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    //Ruajta e mesazhit në bazën e të dhënave
+    public static void storeMessage(String sender, String recipient, String message) {
+        String url = "jdbc:mysql://localhost:3306/secure_chat";
+        String user = "root";
+        String password = "root1234";
 
+        String messageHash = hashMessage(message);
 
+        String sql = "INSERT INTO messages (sender, recipient, message_hash) VALUES (?, ?, ?)";
+    }
 
-}
