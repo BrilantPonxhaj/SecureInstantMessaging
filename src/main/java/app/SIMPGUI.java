@@ -1,6 +1,7 @@
 package app;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -9,8 +10,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.security.InvalidKeyException;
+import java.security.SecureRandom;
 
 public class SIMPGUI extends Application {
     private static final String HOST = "";
@@ -51,11 +57,53 @@ public class SIMPGUI extends Application {
         launch(args);
     }
 
+    private void sendMessage() {
+        try {
+            String message = inputField.getText();
+            if (message.isEmpty()) {
+                return;
+            }
 
-    
+            String fullMessage = username + ": " + message;
+
+            byte[] iv = new byte[12];
+            SecureRandom random = new SecureRandom();
+            random.nextBytes(iv);
+
+            Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+            GCMParameterSpec spec = new GCMParameterSpec(128, iv);
+            cipher.init(Cipher.ENCRYPT_MODE, aesKey, spec);
+            byte[] encryptedMessage = cipher.doFinal(fullMessage.getBytes());
+
+            output.writeInt(encryptedMessage.length);
+            output.write(encryptedMessage);
+            output.write(iv);
+
+            Platform.runLater(() -> {
+                messageArea.appendText(fullMessage + "\n");
+                inputField.clear();
+            });
+
+            // Save the message to the database
+            SecureChat.storeMessage(username, "Broadcast", fullMessage);
+        } catch (InvalidKeyException e) {
+            System.err.println("InvalidKeyException: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+}
 
 
-    class MessageReceiver implements Runnable {
+class MessageReceiver implements Runnable {
         private DataInputStream input;
         private SecretKeySpec aesKey;
         private TextArea messageArea;
