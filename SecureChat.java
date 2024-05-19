@@ -2,9 +2,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecureChat {
-  //Funksioni per me i hashing masazhet
+    //Funksioni per me i hashing masazhet
     public static String hashMessage(String message) {
-        try{
+        try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(message.getBytes());
             StringBuilder hexString = new StringBuilder();
@@ -28,3 +28,4 @@ public class SecureChat {
         String sql = "INSERT INTO messages (sender, recipient, message_hash) VALUES (?, ?, ?)";
     }
 
+}
