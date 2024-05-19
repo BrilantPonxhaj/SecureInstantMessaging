@@ -4,5 +4,6 @@ module com.example.datasecurity4 {
 
 
     opens com.example.datasecurity4 to javafx.fxml;
-    exports com.example.datasecurity4;
+    exports app;
+    opens app to javafx.fxml;
 }
