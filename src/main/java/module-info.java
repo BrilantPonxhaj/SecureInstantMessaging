@@ -1,14 +1,9 @@
-module com.example.knk2324 {
+module com.example.datasecurity4 {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.sql;
-    requires org.bouncycastle.provider;
 
 
-
+    opens com.example.datasecurity4 to javafx.fxml;
     exports app;
-
-
-
-
+    opens app to javafx.fxml;
 }
