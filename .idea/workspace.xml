@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d583af4a-7465-472d-a73a-1eb5a8058e7d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Database/DatabaseCreation.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +47,7 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/Downloads/Attendance-System&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.SIMPGUI">
     <configuration name="SIMPGUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="app.SIMPGUI" />
       <module name="DataSecurityPart3" />
