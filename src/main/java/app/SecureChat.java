@@ -2,6 +2,10 @@ package app;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class SecureChat {
     //Funksioni per me i hashing masazhet
@@ -28,6 +32,17 @@ public class SecureChat {
         String messageHash = hashMessage(message);
 
         String sql = "INSERT INTO messages (sender, recipient, message_hash) VALUES (?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, sender);
+            pstmt.setString(2, recipient);
+            pstmt.setString(3, messageHash);
+
+            pstmt.executeUpdate();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
